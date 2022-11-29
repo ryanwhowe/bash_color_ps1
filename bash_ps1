@@ -1,0 +1,109 @@
+#
+# preconfigured terminal lines for differnet environments
+# 
+# Terminals and terminal emulators all have different interpretations of the decorators
+#
+# run $> color_test to see how differnet elements are rendered for your emulator
+#
+# STEPS:
+# 1. ) turn on `force_color_prompt=yes` in your .bashrc
+# 
+# Replace in your .bashrc
+#
+# PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#
+# With
+#
+# if [ -e $HOME/.bash_ps1 ]; then
+#     C_ENV="EXP"
+#     source $HOME/.bash_ps1
+#     PS1="$C_PROMPT"
+# else
+#     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+# fi
+# 
+# Change C_ENV with the environment you would like 
+# PROD - production
+# TEST - test
+# DEV - development
+# EXP - exprimental
+
+C_RESET="\e[0m"
+
+C_FG_BLACK="\e[30m"
+C_FG_RED="\e[31m"
+C_FG_GREEN="\e[32m"
+C_FG_YELLOW="\e[33m"
+C_FG_BLUE="\e[34m"
+C_FG_MAGENTA="\e[35m"
+C_FG_CYAN="\e[36m"
+C_FG_WHITE="\e[37m"
+
+C_FGB_BLACK="\e[30;1m"
+C_FGB_RED="\e[31;1m"
+C_FGB_GREEN="\e[32;1m"
+C_FGB_YELLOW="\e[33;1m"
+C_FGB_BLUE="\e[34;1m"
+C_FGB_MAGENTA="\e[35;1m"
+C_FGB_CYAN="\e[36;1m"
+C_FGB_WHITE="\e[37;1m"
+
+C_BG_BLACK="\e[30;3m"
+C_BG_RED="\e[31;3m"
+C_BG_GREEN="\e[32;3m"
+C_BG_YELLOW="\e[33;3m"
+C_BG_BLUE="\e[34;3m"
+C_BG_MAGENTA="\e[35;3m"
+C_BG_CYAN="\e[36;3m"
+C_BG_WHITE="\e[37;3m"
+
+C_FGU_BLACK="\e[30;4m"
+C_FGU_RED="\e[31;4m"
+C_FGU_GREEN="\e[32;4m"
+C_FGU_YELLOW="\e[33;4m"
+C_FGU_BLUE="\e[34;4m"
+C_FGU_MAGENTA="\e[35;4m"
+C_FGU_CYAN="\e[36;4m"
+C_FGU_WHITE="\e[37;4m"
+
+_color_test() {
+	for code in {30..37}; do \
+		echo -en "\e[${code}m"'\\e['"$code"'m'"\e[0m"; \
+		echo -en "  \e[$code;1m"'\\e['"$code"';1m'"\e[0m"; \
+		echo -en "  \e[$code;3m"'\\e['"$code"';3m'"\e[0m"; \
+		echo -en "  \e[$code;4m"'\\e['"$code"';4m'"\e[0m"; \
+		echo -e "  \e[$((code+60))m"'\\e['"$((code+60))"'m'"\e[0m"; \
+	done
+}
+
+alias color_test="_color_test"
+
+
+C_PROD_USER="$C_FG_YELLOW\u$C_RESET"
+C_TEST_USER="$C_FG_GREEN\u$C_RESET"
+C_DEV_USER="$C_FG_GREEN\u$C_RESET"
+C_EXP_USER="$C_FG_CYAN\u$C_RESET"
+
+C_PROD_HOST="$C_FG_RED\h$C_RESET"
+C_TEST_HOST="$C_FG_YELLOW\h$C_RESET"
+C_DEV_HOST="$C_FG_GREEN\h$C_RESET"
+C_EXP_HOST="$C_FG_MAGENTA\h$C_RESET"
+
+C_TIME="$C_FG_WHITE[$C_FG_BLUE\T$C_FG_WHITE]$C_RESET"
+C_PWD="$_C_FG_WHITE[$C_FG_MAGENTA\W$C_FG_WHITE]$C_RESET"
+
+if [ $C_ENV == "PROD" ]; then
+    C_PROMPT="$C_TIME $C_PROD_USER$C_FG_YELLOW@$C_PROD_HOST $C_PWD\\$ "
+fi
+
+if [ $C_ENV == "TEST" ]; then
+    C_PROMPT="$C_TIME $C_TEST_USER$C_FG_YELLOW@$C_TEST_HOST $C_PWD\\$ "
+fi
+
+if [ $C_ENV == "DEV" ]; then
+    C_PROMPT="$C_TIME $C_DEV_USER$C_FG_YELLOW@$C_DEV_HOST $C_PWD\\$ "
+fi
+
+if [ $C_ENV == "EXP" ]; then
+    C_PROMPT="$C_TIME $C_EXP_USER$C_FG_YELLOW@$C_EXP_HOST $C_PWD\\$ "
+fi

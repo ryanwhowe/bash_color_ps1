@@ -39,7 +39,7 @@ C_FG_MAGENTA="\[\e[35m\]"
 C_FG_CYAN="\[\e[36m\]"
 C_FG_WHITE="\[\e[37m\]"
 
-C_FGB_BLACK=\["\e[30;1m\]"
+C_FGB_BLACK="\[\e[30;1m\]"
 C_FGB_RED="\[\e[31;1m\]"
 C_FGB_GREEN="\[\e[32;1m\]"
 C_FGB_YELLOW="\[\e[33;1m\]"

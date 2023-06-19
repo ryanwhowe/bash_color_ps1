@@ -34,6 +34,7 @@
 
 C_RESET="\[\e[0m\]"
 
+# Text Color Normal
 C_FG_BLACK="\[\e[30m\]"
 C_FG_RED="\[\e[31m\]"
 C_FG_GREEN="\[\e[32m\]"
@@ -43,6 +44,7 @@ C_FG_MAGENTA="\[\e[35m\]"
 C_FG_CYAN="\[\e[36m\]"
 C_FG_WHITE="\[\e[37m\]"
 
+# Text Color Bold
 C_FGB_BLACK="\[\e[30;1m\]"
 C_FGB_RED="\[\e[31;1m\]"
 C_FGB_GREEN="\[\e[32;1m\]"
@@ -52,15 +54,17 @@ C_FGB_MAGENTA="\[\e[35;1m\]"
 C_FGB_CYAN="\[\e[36;1m\]"
 C_FGB_WHITE="\[\e[37;1m\]"
 
-C_BG_BLACK="\[\e[30;3m\]"
-C_BG_RED="\[\e[31;3m\]"
-C_BG_GREEN="\[\e[32;3m\]"
-C_BG_YELLOW="\[\e[33;3m\]"
-C_BG_BLUE="\[\e[34;3m\]"
-C_BG_MAGENTA="\[\e[35;3m\]"
-C_BG_CYAN="\[\e[36;3m\]"
-C_BG_WHITE="\[\e[37;3m\]"
+# Text Color Italic
+C_FGI_BLACK="\[\e[30;3m\]"
+C_FGI_RED="\[\e[31;3m\]"
+C_FGI_GREEN="\[\e[32;3m\]"
+C_FGI_YELLOW="\[\e[33;3m\]"
+C_FGI_BLUE="\[\e[34;3m\]"
+C_FGI_MAGENTA="\[\e[35;3m\]"
+C_FGI_CYAN="\[\e[36;3m\]"
+C_FGI_WHITE="\[\e[37;3m\]"
 
+# Text Color Bold
 C_FGU_BLACK="\[\e[30;4m\]"
 C_FGU_RED="\[\e[31;4m\]"
 C_FGU_GREEN="\[\e[32;4m\]"
@@ -70,12 +74,24 @@ C_FGU_MAGENTA="\[\e[35;4m\]"
 C_FGU_CYAN="\[\e[36;4m\]"
 C_FGU_WHITE="\[\e[37;4m\]"
 
+# Back Ground Color
+
+C_BG_BLACK="\[\e[40m\]"
+C_BG_RED="\[\e[41m\]"
+C_BG_GREEN="\[\e[42m\]"
+C_BG_YELLOW="\[\e[43m\]"
+C_BG_BLUE="\[\e[44m\]"
+C_BG_MAGENTA="\[\e[45m\]"
+C_BG_CYAN="\[\e[46m\]"
+C_BG_WHITE="\[\e[47m\]"
+
 _color_test() {
 	for code in {30..37}; do \
 		echo -en "\e[${code}m"'\\e['"$code"'m'"\e[0m"; \
 		echo -en "  \e[$code;1m"'\\e['"$code"';1m'"\e[0m"; \
 		echo -en "  \e[$code;3m"'\\e['"$code"';3m'"\e[0m"; \
 		echo -en "  \e[$code;4m"'\\e['"$code"';4m'"\e[0m"; \
+		echo -en "  \e[$((code+10))m"'\\e['"$((code+10))"'m'"\e[0m"; \
 		echo -e "  \e[$((code+60))m"'\\e['"$((code+60))"'m'"\e[0m"; \
 	done
 }

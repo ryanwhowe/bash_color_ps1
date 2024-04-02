@@ -37,6 +37,16 @@ fi
 Update the `C_ENV="EXP"` with your environment.
 
 * PROD - production environments
+![Sample PROD prompt](https://github.com/ryanwhowe/bash_color_ps1/blob/main/images/PROD.png?raw=true)
 * TEST - testing environments
+![Sample TEST prompt](https://github.com/ryanwhowe/bash_color_ps1/blob/main/images/TEST.png?raw=true)
 * DEV - development environments
+![Sample DEV prompt](https://github.com/ryanwhowe/bash_color_ps1/blob/main/images/DEV.png?raw=true)
 * EXP - experimental environments
+![Sample EXP prompt](https://github.com/ryanwhowe/bash_color_ps1/blob/main/images/EXP.png?raw=true)
+
+
+* LEADER - Cluster environments
+![Sample LEADER prompt](https://github.com/ryanwhowe/bash_color_ps1/blob/main/images/LEADER.png?raw=true)
+* WORKER - Cluster environments
+![Sample WORKER prompt](https://github.com/ryanwhowe/bash_color_ps1/blob/main/images/WORKER.png?raw=true)

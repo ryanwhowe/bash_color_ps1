@@ -5,36 +5,43 @@
 ### Download the .bash_ps1 file
 ***!!!WARNING!!!*** You are about to download a file off the internet, thank you for just assuming I'm a super awesome person, your not wrong. But you should always ensure you read and have a basic understanding of what the script you have downloaded will do before you run it.  We will be running this as part of the `.bashrc` so we will be running this every time we log into our system
 
+From your home directory `cd ~` run the following to download the prompts
+
 ```shell
 curl -L -o .bash_ps1 https://raw.githubusercontent.com/ryanwhowe/bash_color_ps1/main/bash_ps1
 ```
 
-### Update your current `.bashrc`
+Still from your home directory download the prompt activation.  This is appended to your `.bash_aliases` file, which should be loaded by default in an [debain](https://www.debian.org/) based system.
+
 ```shell
-cd ~
-vim .bashrc
+
+curl https://raw.githubusercontent.com/ryanwhowe/bash_color_ps1/main/bash_aliases >> .bash_aliases
 ```
 
-Turn on `force_color_prompt=yes` by uncommenting the line
+Update the `C_ENV="EXP"` with your environment from the end of your newly updated `.bash_aliases` file, assuming you want a different prompt than the experimental environment prompt.
 
-Replace the 
-```sh
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+```shell
+vim .bash_aliases
 ```
 
-with
+## Additional Aliases
 
-```sh
-if [ -e $HOME/.bash_ps1 ]; then
-    C_ENV="EXP"
-    source $HOME/.bash_ps1
-    PS1="$C_PROMPT"
-else
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-fi
+### eza
+
+```shell
+alias eza="eza --icons --group-directories-first"
+alias ls="eza"
+alias ll="eza -l -g -h"
+alias lla="eza -l -a -g -h"
+alias la="eza -a"
 ```
 
-Update the `C_ENV="EXP"` with your environment.
+### bat
+
+```shell
+alias bat="batcat"
+alias cat="batcat"
+```
 
 * PROD - production environments
 ![Sample PROD prompt](https://github.com/ryanwhowe/bash_color_ps1/blob/main/images/PROD.png?raw=true)

@@ -15,10 +15,11 @@
 #
 # With
 #
-# if [ -e $HOME/.bash_ps1 ]; then
+# if [ -e "$HOME/.bash_ps1" ]; then
 #     C_ENV="EXP"
-#     source $HOME/.bash_ps1
-#     PS1="$C_PROMPT"
+#     if source "$HOME/.bash_ps1"; then
+#         PS1="$C_PROMPT"
+#     fi
 # else
 #     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 # fi
@@ -114,28 +115,30 @@ C_LEADER_HOST="$C_BG_GREEN$C_FG_YELLOW\h$C_RESET"
 C_WORKER_HOST="$C_BG_RED$C_FG_YELLOW\h$C_RESET"
 
 C_TIME="$C_FG_WHITE[$C_FG_BLUE\T$C_FG_WHITE]$C_RESET"
-C_PWD="$_C_FG_WHITE[$C_FG_MAGENTA\W$C_FG_WHITE]$C_RESET"
+C_PWD="$C_FG_WHITE[$C_FG_MAGENTA\W$C_FG_WHITE]$C_RESET"
 
-if [ $C_ENV == "PROD" ]; then
-    C_PROMPT="$C_TIME $C_PROD_USER$C_FG_YELLOW@$C_PROD_HOST $C_PWD\\$ "
-fi
-
-if [ $C_ENV == "TEST" ]; then
-    C_PROMPT="$C_TIME $C_TEST_USER$C_FG_YELLOW@$C_TEST_HOST $C_PWD\\$ "
-fi
-
-if [ $C_ENV == "DEV" ]; then
-    C_PROMPT="$C_TIME $C_DEV_USER$C_FG_YELLOW@$C_DEV_HOST $C_PWD\\$ "
-fi
-
-if [ $C_ENV == "EXP" ]; then
-    C_PROMPT="$C_TIME $C_EXP_USER$C_FG_YELLOW@$C_EXP_HOST $C_PWD\\$ "
-fi
-
-if [ $C_ENV == "LEADER" ]; then
-    C_PROMPT="$C_TIME $C_LEADER_USER$C_FG_YELLOW@$C_LEADER_HOST $C_PWD\\$ "
-fi
-
-if [ $C_ENV == "WORKER" ]; then
-    C_PROMPT="$C_TIME $C_WORKER_USER$C_FG_YELLOW@$C_WORKER_HOST $C_PWD\\$ "
-fi
+case "${C_ENV-}" in
+    PROD)
+        C_PROMPT="$C_TIME $C_PROD_USER$C_FG_YELLOW@$C_PROD_HOST $C_PWD\\$ "
+        ;;
+    TEST)
+        C_PROMPT="$C_TIME $C_TEST_USER$C_FG_YELLOW@$C_TEST_HOST $C_PWD\\$ "
+        ;;
+    DEV)
+        C_PROMPT="$C_TIME $C_DEV_USER$C_FG_YELLOW@$C_DEV_HOST $C_PWD\\$ "
+        ;;
+    EXP)
+        C_PROMPT="$C_TIME $C_EXP_USER$C_FG_YELLOW@$C_EXP_HOST $C_PWD\\$ "
+        ;;
+    LEADER)
+        C_PROMPT="$C_TIME $C_LEADER_USER$C_FG_YELLOW@$C_LEADER_HOST $C_PWD\\$ "
+        ;;
+    WORKER)
+        C_PROMPT="$C_TIME $C_WORKER_USER$C_FG_YELLOW@$C_WORKER_HOST $C_PWD\\$ "
+        ;;
+    *)
+        unset C_PROMPT
+        printf 'Invalid C_ENV: "%s". Expected PROD, TEST, DEV, EXP, LEADER, or WORKER.\n' "${C_ENV-<unset>}" >&2
+        return 1
+        ;;
+esac
